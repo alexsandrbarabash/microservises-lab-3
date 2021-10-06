@@ -1,0 +1,26 @@
+server {
+	listen 80;
+
+	server_name localhost;
+
+
+	location / {
+		proxy_pass http://frontend:3000;
+
+		# For sockets
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "upgrade";
+	}
+
+	location /api {
+		proxy_pass http://api:5000;
+		rewrite ^/api/(.*) /$1 break;
+	}
+
+	location /auth/api {
+		proxy_pass http://auth:5001;
+		rewrite ^/auth/api/(.*) /$1 break;
+	}
+
+}
