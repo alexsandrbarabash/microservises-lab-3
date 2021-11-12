@@ -18,3 +18,8 @@ spec:
           name: api           # ім'я контейнеру
           ports:
             - containerPort: 8080 
+          env:
+            - name: AUTH_API_URL
+              value: "http://auth-service:80"
+            - name: DB
+              value: "mongodb://mongodb:27017"

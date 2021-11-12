@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.4",
     "express": "^4.17.1",
+    "kafkajs": "^1.15.0",
     "mongoose": "^6.0.6",
     "nodemon": "^2.0.12"
   }

@@ -4,19 +4,22 @@ const app = express();
 const { port, db, host, authApiUrl } = require('./configuration');
 const { Kitten } = require('./models/kitten.model');
 const axios = require('axios');
+const { consume } = require('./kafka/consume');
 
 const currentPort = 8080;
+
+console.log(authApiUrl, "UPDATE");
 
 const launchServer = () => {
   app.listen(currentPort, async () => {
     console.log('Server is up and running on PORT: ' + currentPort);
-
-//    const kitten = new Kitten({
+		await consume();
+//		const kitten = new Kitten({
 //      name: 'Silence'
 //    });
 //    console.log('Additional log');
 //		console.log('Additional log!!!!!');
-//		console.log('Govno');
+//		
 //    try {
 //      await kitten.save();
 //
@@ -25,7 +28,6 @@ const launchServer = () => {
 //    } catch (e) {
 //      console.log(e);
 //    }
-
   });
 }
 
@@ -34,24 +36,24 @@ app.get('/test', async (req, res, next) => {
   res.send('Api is working correctly!');
 });
 
-app.get('/testwithcurrentuser', async (req, res, next) => {
-	console.log('AUTH_API_URL: ' + authApiUrl);
-	
-	const response = await axios.get(authApiUrl + '/currentUser');
-	
-	const { data } = response;
-	
-	
-	res.json({
-		testwithcurrentuser: true,
-		currentUserFromAuth: data
-	});
-}); 
+app.get('/api/api/testwithcurrentuser', async (req, res, next) => {
+  console.log('AUTH_API_URL: ' + authApiUrl);
+
+  const response = await axios.get(authApiUrl + '/currentUser');
+
+  const { data } = response;
+
+
+  res.json({
+    testwithcurrentuser: true,
+    currentUserFromAuth: data
+  });
+});
 
 app.get('/api/testapidata', (req, res) => {
-	res.json({
-		testWithApi: true
-	});
+  res.json({
+    testWithApi: true
+  });
 });
 
 //mongoose

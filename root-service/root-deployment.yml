@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: root-deployment
+spec:
+  replicas: 1                      # кількість екземплярів Pod, що буде створено цим Deployment
+  selector:
+    matchLabels:
+      app: root                # селектор по якому Deployment зв'язаний з Pod
+  template:
+    metadata:
+     labels:
+       app: root               # мітка Pod по якому вона буде зв'язана з Deployment та Service
+    spec:
+      containers:
+        - image: root:0.1       # образ Docker
+          imagePullPolicy: Never   # вказує k8s, що образ не потрібно завантажувати (варто використовувати лише для випадків, коли образи локальні)
+          name: root           # ім'я контейнеру
+          ports:
+            - containerPort: 8080 
+          env:
+            - name: API_URL
+              value: "http://api-service:80"

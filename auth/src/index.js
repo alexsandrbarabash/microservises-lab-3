@@ -17,7 +17,8 @@ app.get('/test', async (req, res, next) => {
   res.send('Api is working correctly!');
 });
 
-app.get('/api/currentUser', (req, res, next) => {
+app.get('/currentUser', (req, res, next) => {
+	console.log("Hit!");
 	res.json({
 		id: '1234',
 		email: 'foo@gmail.com'
