@@ -21,7 +21,7 @@ spec:
           env:
           - name: POSTGRES_DB
             value: demo
-          - name: POSTGRES_USER
+          - name: POSTGRES_USERS
             value: demo
           - name: POSTGRES_PASSWORD # так працювати з конфігураціями в прод середовищі не варто, це буде розглянуто в наступних лабораторних
             value: demo
