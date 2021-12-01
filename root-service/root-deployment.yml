@@ -13,8 +13,7 @@ spec:
        app: root               # мітка Pod по якому вона буде зв'язана з Deployment та Service
     spec:
       containers:
-        - image: root:0.1       # образ Docker
-          imagePullPolicy: Never   # вказує k8s, що образ не потрібно завантажувати (варто використовувати лише для випадків, коли образи локальні)
+        - image: cfif2001/root:0.3       # образ Docker
           name: root           # ім'я контейнеру
           ports:
             - containerPort: 8080 

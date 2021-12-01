@@ -23,5 +23,103 @@
 
 ``$(minikube ip)``
 
+# Виконати команди нижче
 
+### minikube
+
+```
+minikube start --driver=hyperv --memory=4000
+```
+
+```
+minikube addons enable ingress
+```
+### istio
+
+`istio` - для некс має бути встановлено
+
+```
+istioctl install --set profile=demo -y
+```
+
+```
+kubectl label namespace default istio-injection=enabled
+```
+
+### api
+
+```
+kubectl apply -f api/api-deployment.yml
+```
+
+```
+kubectl apply -f api/api-service.yml
+```
+
+```
+kubectl apply -f api/virtual-service.yml
+```
+
+### auth
+
+```
+kubectl apply -f auth/api-deployment.yml
+```
+
+```
+kubectl apply -f auth/api-service.yml
+```
+
+### root-service
+
+```
+kubectl apply -f root-service/root-deployment.yml
+```
+
+```
+kubectl apply -f root-service/root-service.yml
+```
+
+```
+kubectl apply -f root-service/virtual-service.yml
+```
+
+```
+kubectl apply -f root-service/circuit-breaker.yml
+```
+
+### ingress
+
+```
+kubectl apply -f ingress.yml
+```
+
+### db
+
+```
+kubectl apply -f db/persistent-volume-claim.yml
+```
+
+```
+kubectl apply -f db/postgres-deployment.yml
+```
+
+### перевірка бд
+```
+kubectl get storageclass
+```
+має вивести storageclass
+
+### Кафка
+```
+kubectl apply -f kafka
+```
+
+###  перевірка кафки
+треба взяти логи з pod auth і пода api `kubectl logs назва пода`
+і просто показати що повідомлення виводяться
+
+поди можна взяти командую `kubectl get pods` вони всі мають бути запущені!!!
+
+якщо будуть ерори то видалити всі деплойменти і запустити спочатку деплоймент кафки
 
